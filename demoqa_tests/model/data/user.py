@@ -11,18 +11,46 @@ class Gender(Enum):
 
 
 class Subject(Enum):
-    pass
+    Maths = 'Maths'
+    Accounting = 'Accounting'
+    Arts = 'Arts'
+    Social_Studies = 'Social Studies'
+    English = 'English'
+    Chemistry = 'Chemistry'
+    Physics = 'Physics'
+    Computer_Science = 'Computer Science'
+    Economics = 'Economics'
+    History = 'History'
+    Civics = 'Civics'
+    Commerce = 'Commerce'
+    Biology = 'Biology'
+    Hindi = 'Hindi'
 
 
 class Hobbies(Enum):
-    pass
+    Music = 1,
+    Reading = 2,
+    Sports = 3,
 
 
 class State(Enum):
+    NCR = 'NCR',
+    Uttar_Pradesh = 'Uttar Pradesh',
+    Haryana = 'Haryana',
+    Rajasthan = 'Rajasthan'
 
 
 class City(Enum):
-    pass
+    Karnal = 'Karnal',
+    Panipat = 'Panipat',
+    Delhi = 'Delhi',
+    Gurgaon = 'Gurgaon',
+    Noida = 'Noida',
+    Agra = 'Agra',
+    Merrut = 'Merrut',
+    Lucknow = 'Lucknow',
+    Jaipur = 'Jaipur',
+    Jaiselmer = 'Jaiselmer'
 
 
 @dataclass
