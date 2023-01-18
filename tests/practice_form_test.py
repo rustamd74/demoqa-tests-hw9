@@ -1,10 +1,25 @@
-from demoqa_tests.model.data.user import user_test
-from demoqa_tests.model.pages.practice_form import Practice_form
+import datetime
+
+from demoqa_tests.model.data.user import User, Subject, Hobbies, Gender, State, City
+from demoqa_tests.model.pages.practice_form import PracticeForm
 
 
 def test_student_registration():
-    automation_form = Practice_form(user_test)
-    automation_form.open_page()
-    automation_form.fill_form()
+    student = User(first_name='John',
+                   last_name='Doe',
+                   email='johndoe@gmail.com',
+                   phone_number='2223331110',
+                   current_address='221b, Baker street',
+                   birthday=datetime.date(2004, 3, 5),
+                   subject=[Subject.Computer_Science, Subject.Maths],
+                   hobbies=[Hobbies.Sports, Hobbies.Music],
+                   gender=Gender.Male,
+                   picture='python_label.png',
+                   state=State.Uttar_Pradesh,
+                   city=City.Lucknow)
 
-    automation_form.assert_registration_student()
+    automation_form = PracticeForm()
+    automation_form.open_page()
+    automation_form.fill_form(student)
+
+    automation_form.assert_registration_student(student)

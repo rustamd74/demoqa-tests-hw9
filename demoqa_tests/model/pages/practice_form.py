@@ -1,15 +1,17 @@
+from datetime import datetime
+from typing import List
+
 from selene import have, command
 from selene.support.shared import browser
 from demoqa_tests.model.controls.radio_button import Radiobutton
 from demoqa_tests.model.controls.checkbox import Checkbox
 from demoqa_tests.model.controls.dropdown import Dropdown
 from demoqa_tests.model.controls.date_picker import Datepicker
+from demoqa_tests.model.data.user import User, Gender, Subject, Hobbies, State, City
 from demoqa_tests.utils import file_path
 
 
-class Practice_form:
-    def __init__(self, user):
-        self.user = user
+class PracticeForm:
 
     def open_page(self):
         browser.open('/automation-practice-form')
@@ -19,88 +21,91 @@ class Practice_form:
 
         return self
 
-    def full_name(self):
-        browser.element('#firstName').type(self.user.first_name)
-        browser.element('#lastName').type(self.user.last_name)
-
+    def first_name(self, first_name: str):
+        browser.element('#firstName').type(first_name)
         return self
 
-    def full_contact(self):
-        browser.element('#userEmail').type(self.user.email)
-        browser.element('#userNumber').type(self.user.phone_number)
-
+    def last_name(self, last_name: str):
+        browser.element('#lastName').type(last_name)
         return self
 
-    def select_gender(self):
+    def full_contact(self, email: str, phone: str):
+        browser.element('#userEmail').type(email)
+        browser.element('#userNumber').type(phone)
+        return self
+
+    def select_gender(self, student_gender: Gender):
         gender = Radiobutton(browser.all('[name=gender]'))
-        gender.select_value(self.user.gender.value)
-
+        gender.select_value(student_gender.value)
         return self
 
-    def date_birthday(self):
+    def date_birthday(self, birthday: datetime.date):
         birthday_datepicker = Datepicker(browser.element('#dateOfBirthInput'))
-        birthday_datepicker.select_date(self.user.birthday)
-
+        birthday_datepicker.select_date(birthday)
         return self
 
-    def subject(self):
-        browser.element('#subjectsInput').type(self.user.subject).press_enter()
-
+    def subject(self, subject: List):
+        for elem in subject:
+            browser.element('#subjectsInput').type(elem.value).press_enter()
         return self
 
-    def set_hobbies(self):
+    def set_hobbies(self, hobbies: List):
         set_hobbies = Checkbox(browser.all('[for="hobbies-checkbox"]'))
-        set_hobbies.select_hobbies(self.user.hobbies)
-
+        set_hobbies.select_hobbies(hobbies[0].value)
         return self
 
     def scrool_page(self):
         browser.element('#state').perform(command.js.scroll_into_view)
 
-    def insert_picture(self):
-        relative_path = 'resources/python_label.png'
+    def insert_picture(self, filename: str):
+        relative_path = f'resources/{filename}'
         path = file_path.create_path('#uploadPicture', relative_path)
         browser.element('#uploadPicture').set_value(path)
-
         return self
 
-    def full_address(self):
-        browser.element('#currentAddress').type(self.user.current_address)
-
+    def full_address(self, address: str):
+        browser.element('#currentAddress').type(address)
         return self
 
-    def select_state(self):
+    def select_state(self, state: State):
         dropdown = Dropdown('#state')
-        dropdown.select(self.user.state.value)
-
+        dropdown.select(state)
         return self
 
-    def select_city(self):
+    def select_city(self, city: City):
         dropdown = Dropdown('#city')
-        dropdown.select(self.user.city.value)
-
+        dropdown.select(city)
         return self
 
     def submit(self):
         browser.element('#submit').press_enter()
 
-    def fill_form(self):
-        self.full_name()
-        self.full_contact()
-        self.select_gender()
-        self.date_birthday()
-        self.subject()
+    def fill_form(self, student: User):
+        self.first_name(student.first_name)
+        self.last_name(student.last_name)
+        self.full_contact(student.email, student.phone_number)
+        self.select_gender(student.gender)
+        self.date_birthday(student.birthday)
+        self.subject(student.subject)
         self.scrool_page()
-        self.insert_picture()
-        self.set_hobbies()
-        self.full_address()
-        self.select_state()
-        self.select_city()
+        self.insert_picture(student.picture)
+        self.set_hobbies(student.hobbies)
+        self.full_address(student.current_address)
+        self.select_state(student.state)
+        self.select_city(student.city)
         self.submit()
 
     @classmethod
     def assert_registration_student(cls, user):
         browser.element('.table').all('td').even.should(
-            have.exact_texts(f'{user.first_name} {user.last_name}', user.email, user.gender, user.phone_number,
-                             user.birthday, user.subject, user.hobbies, user.picture, user.current_address,
+            have.exact_texts(f'{user.first_name}'
+                             f' {user.last_name}',
+                             user.email,
+                             user.gender,
+                             user.phone_number,
+                             user.birthday,
+                             user.subject,
+                             user.hobbies,
+                             user.picture,
+                             user.current_address,
                              f'{user.state} {user.city}'))
