@@ -19,38 +19,38 @@ class Practice_form:
 
         return self
 
-    def full_name(self, user):
-        browser.element('#firstName').type(user.first_name)
-        browser.element('#lastName').type(user.last_name)
+    def full_name(self):
+        browser.element('#firstName').type(self.user.first_name)
+        browser.element('#lastName').type(self.user.last_name)
 
         return self
 
-    def full_contact(self, user):
-        browser.element('#userEmail').type(user.email)
-        browser.element('#userNumber').type(user.phone_number)
+    def full_contact(self):
+        browser.element('#userEmail').type(self.user.email)
+        browser.element('#userNumber').type(self.user.phone_number)
 
         return self
 
-    def select_gender(self, user):
+    def select_gender(self):
         gender = Radiobutton(browser.all('[name=gender]'))
-        gender.select_value(user.gender)
+        gender.select_value(self.user.gender.value)
 
         return self
 
-    def date_birthday(self, user):
+    def date_birthday(self):
         birthday_datepicker = Datepicker(browser.element('#dateOfBirthInput'))
-        birthday_datepicker.select_date(user.birthday)
+        birthday_datepicker.select_date(self.user.birthday)
 
         return self
 
-    def subject(self, user):
-        browser.element('#subjectsInput').type(user.subject).press_enter()
+    def subject(self):
+        browser.element('#subjectsInput').type(self.user.subject).press_enter()
 
         return self
 
-    def set_hobbies(self, user):
-        set_hobbies = Checkbox(browser.element('[for="hobbies-checkbox-3"]'))
-        set_hobbies.select_hobbies(browser.all('[for^=hobbies-checkbox]'), user.hobbies)
+    def set_hobbies(self):
+        set_hobbies = Checkbox(browser.all('[for="hobbies-checkbox"]'))
+        set_hobbies.select_hobbies(self.user.hobbies)
 
         return self
 
@@ -60,41 +60,42 @@ class Practice_form:
     def insert_picture(self):
         relative_path = 'resources/python_label.png'
         path = file_path.create_path('#uploadPicture', relative_path)
-        browser.element('#uploadPicture', path)
+        browser.element('#uploadPicture').set_value(path)
 
         return self
 
-    def full_address(self, user):
-        browser.element('#currentAddress').type(user.current_address)
+    def full_address(self):
+        browser.element('#currentAddress').type(self.user.current_address)
 
         return self
 
-    def select_state(self, user):
+    def select_state(self):
         dropdown = Dropdown('#state')
-        dropdown.select(user.state)
+        dropdown.select(self.user.state.value)
 
         return self
 
-    def select_city(self, user):
+    def select_city(self):
         dropdown = Dropdown('#city')
-        dropdown.select(user.city)
+        dropdown.select(self.user.city.value)
 
         return self
 
     def submit(self):
         browser.element('#submit').press_enter()
 
-    def fill_form(self, user):
-        self.full_name(user)\
-            .full_contact(user)\
-            .select_gender(user)\
-            .date_birthday(user)\
-            .subject(user)\
-            .insert_picture()\
-            .set_hobbies(user)\
-            .full_address(user)\
-            .select_state(user)\
-            .select_city(user)
+    def fill_form(self):
+        self.full_name()
+        self.full_contact()
+        self.select_gender()
+        self.date_birthday()
+        self.subject()
+        self.scrool_page()
+        self.insert_picture()
+        self.set_hobbies()
+        self.full_address()
+        self.select_state()
+        self.select_city()
         self.submit()
 
     @classmethod
