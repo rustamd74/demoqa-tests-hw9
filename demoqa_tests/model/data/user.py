@@ -67,11 +67,3 @@ class User:
     gender: Gender
     state: State
     city: City
-
-
-user_test = User(first_name='John', last_name='Doe', email='johndoe@gmail.com', phone_number='2223331110',
-                 current_address='221b, Baker street', birthday=datetime.date(2004, 3, 4),
-                 subject=[Subject.Computer_Science, Subject.Maths],
-                 hobbies=[Hobbies.Sports, Hobbies.Music], gender=Gender.Male, picture='python_label.png',
-                 state=State.Uttar_Pradesh,
-                 city=City.Lucknow)
