@@ -2,7 +2,6 @@ import datetime
 from typing import List
 
 from selene import have, command
-from selene.support.by import name
 from selene.support.shared import browser
 from demoqa_tests.model.controls.radio_button import Radiobutton
 from demoqa_tests.model.controls.checkbox import Checkbox
@@ -106,8 +105,8 @@ class Practice_form:
                 student.gender,
                 student.phone_number,
                 student.birthday,
-                ', '.join(subject._name_ for subject in student.subject),
-                ', '.join(hobbies._name_ for hobbies in student.hobbies),
+                ', '.join(subject.name for subject in student.subject),
+                ', '.join(hobbies.name for hobbies in student.hobbies),
                 student.picture.split('/')[-1],
                 student.address,
                 f'{student.state} {student.city}'))
