@@ -28,9 +28,9 @@ class Subject(Enum):
 
 
 class Hobbies(Enum):
-    Music = 1
-    Reading = 2
-    Sports = 3
+    Sports = 'Sports',
+    Music = 'Music',
+    Reading = 'Reading'
 
 
 class State(Enum):
@@ -59,11 +59,11 @@ class User:
     last_name: str
     email: str
     phone_number: str
-    current_address: str
+    address: str
     birthday: datetime.date
     subject: List[Subject]
     hobbies: List[Hobbies]
     picture: str
     gender: Gender
-    state: State
-    city: City
+    state: List[State]
+    city: List[City]

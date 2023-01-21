@@ -1,10 +1,12 @@
-from selene.support.conditions import have
+from typing import List
+
+from selene import have
 
 
 class Checkbox:
     def __init__(self, element):
         self.element = element
 
-    def select_hobbies(self, *by_texts):
-        for value in by_texts:
-            self.element.element_by(have.text(value)).click()
+    def select_hobbies(self, hobbies: List):
+        for value in hobbies:
+            self.element.element_by(have.exact_text(value.name)).click()

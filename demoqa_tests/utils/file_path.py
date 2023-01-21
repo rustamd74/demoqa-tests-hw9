@@ -3,5 +3,7 @@ import os
 import tests
 
 
-def create_path(selector, path):
-    browser.element(selector).set_value(os.path.abspath(os.path.join(os.path.dirname(tests.__file__), path)))
+def create_path(selector, file):
+    browser.element(selector).set_value(
+        os.path.abspath(os.path.join(os.path.dirname(tests.__file__), f'resources/{file}'))
+    )

@@ -1,13 +1,11 @@
-from selene.support.conditions import have
-from selene.support.shared import browser
+from selene import have
 
 
 class Dropdown:
-    def __init__(self, selector):
-        self.selector = selector
+    def __init__(self, element, elements):
+        self.element = element
+        self.elements = elements
 
-    def select(self, by_text):
-        browser.element(self.selector).click()
-        browser.all('[id^=react-select][id*=option]').element_by(
-            have.exact_text(by_text)
-            ).click()
+    def select(self, value):
+        self.element.click()
+        self.elements.element_by(have.exact_text(value)).click()
