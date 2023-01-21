@@ -102,11 +102,11 @@ class Practice_form:
             have.texts(
                 f'{student.first_name} {student.last_name}',
                 student.email,
-                student.gender,
+                student.gender.value,
                 student.phone_number,
-                student.birthday,
-                ', '.join(subject.name for subject in student.subject),
-                ', '.join(hobbies.name for hobbies in student.hobbies),
+                student.birthday.strftime('%d %B,%Y'),
+                ', '.join(subject.value for subject in student.subject),
+                ', '.join(hobbies.value for hobbies in student.hobbies),
                 student.picture.split('/')[-1],
                 student.address,
-                f'{student.state} {student.city}'))
+                f'{student.state.value} {student.city.value}'))
