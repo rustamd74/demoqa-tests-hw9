@@ -28,8 +28,8 @@ class Subject(Enum):
 
 
 class Hobbies(Enum):
-    Sports = 'Sports',
-    Music = 'Music',
+    Sports = 'Sports'
+    Music = 'Music'
     Reading = 'Reading'
 
 
