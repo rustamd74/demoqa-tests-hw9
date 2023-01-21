@@ -15,8 +15,8 @@ def test_student_registration():
                    hobbies=[Hobbies.Sports, Hobbies.Music],
                    picture='python_label.png',
                    address='221b, Baker street',
-                   state=[State.Uttar_Pradesh],
-                   city=[City.Lucknow])
+                   state=State.Uttar_Pradesh,
+                   city=City.Lucknow)
     automation_form = Practice_form()
     automation_form.open_page()
     automation_form.fill_form(student)

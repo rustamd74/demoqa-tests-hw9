@@ -65,5 +65,5 @@ class User:
     hobbies: List[Hobbies]
     picture: str
     gender: Gender
-    state: List[State]
-    city: List[City]
+    state: State
+    city: City

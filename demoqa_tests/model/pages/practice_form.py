@@ -2,6 +2,7 @@ import datetime
 from typing import List
 
 from selene import have, command
+from selene.support.by import name
 from selene.support.shared import browser
 from demoqa_tests.model.controls.radio_button import Radiobutton
 from demoqa_tests.model.controls.checkbox import Checkbox
@@ -68,14 +69,14 @@ class Practice_form:
         browser.element('#currentAddress').set_value(address)
         return self
 
-    def select_state(self, state):
+    def select_state(self, state: State):
         dropdown = Dropdown(browser.element('#state'), browser.all('[id^=react-select][id*=option]'))
-        dropdown.select(state)
+        dropdown.select(state.value)
         return self
 
-    def select_city(self, city):
+    def select_city(self, city: City):
         dropdown = Dropdown(browser.element('#city'), browser.all('[id^=react-select][id*=option]'))
-        dropdown.select(city)
+        dropdown.select(city.value)
         return self
 
     def submit(self):
@@ -99,13 +100,14 @@ class Practice_form:
     @classmethod
     def assert_registration_student(cls, student):
         browser.element('.table').all('td').even.should(
-            have.exact_texts(f'{student.first_name} {student.last_name}',
-                             student.email,
-                             student.gender,
-                             student.phone_number,
-                             student.birthday,
-                             student.subject,
-                             student.hobbies,
-                             student.picture,
-                             student.address,
-                             f'{student.state} {student.city}'))
+            have.texts(
+                f'{student.first_name} {student.last_name}',
+                student.email,
+                student.gender,
+                student.phone_number,
+                student.birthday,
+                ', '.join(subject._name_ for subject in student.subject),
+                ', '.join(hobbies._name_ for hobbies in student.hobbies),
+                student.picture.split('/')[-1],
+                student.address,
+                f'{student.state} {student.city}'))
