@@ -6,6 +6,6 @@ class Dropdown:
         self.element = element
         self.elements = elements
 
-    def select(self, value):
+    def select(self, by_text):
         self.element.click()
-        self.elements.element_by(have.exact_text(value)).click()
+        self.elements.element_by(have.exact_text(by_text)).click()

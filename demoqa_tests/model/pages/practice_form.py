@@ -70,7 +70,7 @@ class Practice_form:
 
     def select_state(self, state):
         dropdown = Dropdown(browser.element('#state'), browser.all('[id^=react-select][id*=option]'))
-        dropdown.select(state.Uttar_Pradesh)
+        dropdown.select(state)
         return self
 
     def select_city(self, city):
