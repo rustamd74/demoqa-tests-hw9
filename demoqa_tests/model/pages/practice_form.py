@@ -18,8 +18,8 @@ class Practice_form:
         ads = browser.all('[id^=google_ads_][id$=container__]')
         ads.with_(timeout=10).should(have.size_greater_than_or_equal(3)).perform(
             command.js.remove)
-        if ads.with_(timeout=2).wait_until(have.size_greater_than_or_equal(2)):
-            ads.perform(command.js.remove)
+        # if ads.with_(timeout=2).wait_until(have.size_greater_than_or_equal(2)):
+        #     ads.perform(command.js.remove)
         return self
 
     def first_name(self, first_name: str):
